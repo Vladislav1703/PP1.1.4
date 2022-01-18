@@ -2,6 +2,7 @@ package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -29,8 +30,15 @@ public class UserDaoHibernateImpl implements UserDao {
             query.executeUpdate();
             transaction.commit();
             session.close();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
             e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 
@@ -40,13 +48,20 @@ public class UserDaoHibernateImpl implements UserDao {
         try {
             session = Util.getSessionFactory().openSession();
             Transaction transaction = session.beginTransaction();
-            String sql = "DROP TABLE IF EXISTS users";
+            String sql = "DROP TABLE IF EXISTS Users";
             Query query = session.createSQLQuery(sql);
             query.executeUpdate();
             transaction.commit();
             session.close();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
             e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 
@@ -59,8 +74,16 @@ public class UserDaoHibernateImpl implements UserDao {
             User user = new User(name, lastName, age);
             session.save(user);
             session.getTransaction().commit();
-        } catch (Exception e) {
+            System.out.println("User с именем – " + name + " добавлен в базу данных");
+        } catch (HibernateException e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
             e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 
@@ -74,8 +97,15 @@ public class UserDaoHibernateImpl implements UserDao {
             user.setId(id);
             session.delete(user);
             session.getTransaction().commit();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
             e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 
@@ -87,14 +117,40 @@ public class UserDaoHibernateImpl implements UserDao {
             session = Util.getSessionFactory().getCurrentSession();
             session.beginTransaction();
             userList = session.createQuery("from Users", User.class).getResultList();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
             e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
         return userList;
     }
 
     @Override
     public void cleanUsersTable() {
+        Session session = null;
+        try {
+            session = Util.getSessionFactory().openSession();
+            Transaction transaction = session.beginTransaction();
+            String sql = "Delete from Users";
+            Query query = session.createSQLQuery(sql);
+            query.executeUpdate();
+            transaction.commit();
+            session.close();
+        } catch (HibernateException e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
 
     }
 }

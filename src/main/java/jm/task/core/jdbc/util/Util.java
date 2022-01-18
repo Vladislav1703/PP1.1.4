@@ -35,7 +35,6 @@ public class Util {
             try {
                 Configuration configuration = new Configuration();
 
-                // Hibernate settings equivalent to hibernate.cfg.xml's properties
                 Properties settings = new Properties();
                 settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
                 settings.put(Environment.URL, "jdbc:mysql://localhost:3306/store?autoReconnect=true&useSSL=false&serverTimezone=UTC");
@@ -46,8 +45,6 @@ public class Util {
                 settings.put(Environment.SHOW_SQL, "true");
 
                 settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-
-//                settings.put(Environment.HBM2DDL_AUTO, "validate");
 
                 configuration.setProperties(settings);
 
