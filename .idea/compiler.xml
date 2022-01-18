@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="jmpreproject" target="17" />
+      <module name="jmpreproject" target="7" />
     </bytecodeTargetLevel>
   </component>
 </project>
