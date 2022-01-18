@@ -1,5 +1,5 @@
 package jm.task.core.jdbc;
-
+//
 import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
 
 public class Main {
