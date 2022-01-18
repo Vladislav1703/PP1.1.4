@@ -13,9 +13,8 @@ public class Util {
     public static Connection getConnection() {
         try {
             connection = DriverManager.getConnection(url, user, pass);
-            System.out.println("Connection good!");
         } catch (SQLException e) {
-            System.out.println("Connection bad!");
+            System.out.println("Disconnection :(");
             e.printStackTrace();
         }
 

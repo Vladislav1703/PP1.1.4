@@ -79,6 +79,7 @@ public class UserDaoHibernateImpl implements UserDao {
             preparedStatement.executeUpdate();
             connection.commit();
             connection.setAutoCommit(true);
+            System.out.println("User с именем – " + name + " добавлен в базу данных");
         } catch (SQLException e) {
             e.printStackTrace();
             try {
