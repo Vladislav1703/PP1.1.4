@@ -11,7 +11,10 @@ public class Main {
         UserDaoHibernateImpl userDaoHibernate = new UserDaoHibernateImpl();
         try {
             userDaoHibernate.createUsersTable();
-            userDaoHibernate.dropUsersTable();
+            userDaoHibernate.removeUserById(5L);
+//            userDaoHibernate.saveUser("Egor", "Letov", (byte) 43);
+//            userDaoHibernate.saveUser("Xi", "Jinping", (byte) 68);
+//            userDaoHibernate.dropUsersTable();
 //            System.out.println(userDaoHibernate.getAllUsers());
 //            userService.createUsersTable();
 //            userService.saveUser("Egor", "Letov", (byte) 43);
