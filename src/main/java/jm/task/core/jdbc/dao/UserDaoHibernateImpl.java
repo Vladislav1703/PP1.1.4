@@ -20,7 +20,7 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public void createUsersTable() {
         try {
-            if (session == null) {
+            if (session == null || !session.isOpen()) {
                 session = Util.getSessionFactory().openSession();
             }
             Transaction transaction = session.beginTransaction();
@@ -47,7 +47,7 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public void dropUsersTable() {
         try {
-            if (session == null) {
+            if (session == null || !session.isOpen()) {
                 session = Util.getSessionFactory().openSession();
             }
             Transaction transaction = session.beginTransaction();
@@ -71,7 +71,7 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public void saveUser(String name, String lastName, byte age) {
         try {
-            if (session == null) {
+            if (session == null || !session.isOpen()) {
                 session = Util.getSessionFactory().openSession();
             }
             session.beginTransaction();
@@ -94,7 +94,7 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public void removeUserById(long id) {
         try {
-            if (session == null) {
+            if (session == null || !session.isOpen()) {
                 session = Util.getSessionFactory().openSession();
             }
             session.beginTransaction();
@@ -118,7 +118,7 @@ public class UserDaoHibernateImpl implements UserDao {
     public List<User> getAllUsers() {
         List <User> userList = new ArrayList<>();
         try {
-            if (session == null) {
+            if (session == null || !session.isOpen()) {
                 session = Util.getSessionFactory().openSession();
             }
             session.beginTransaction();
@@ -139,7 +139,7 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public void cleanUsersTable() {
         try {
-            if (session == null) {
+            if (session == null || !session.isOpen()) {
                 session = Util.getSessionFactory().openSession();
             }
             Transaction transaction = session.beginTransaction();
